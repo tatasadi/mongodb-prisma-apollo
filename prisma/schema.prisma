@@ -7,54 +7,37 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Movie {
+model movies {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  plot String
+  plot String?
   genres String[]
-  poster String
-  runtime Int
+  poster String?
+  runtime Int?
   cast String[]
-  num_mflix_comments Int
+  num_mflix_comments Int?
   title String
-  fullplot String
+  fullplot String?
   languages String[]
-  released DateTime
+  released DateTime?
   directors String[]
   writers String[]
-  rated String
-  awards Award
-  lastupdated DateTime
-  year Int
-  imdb Imdb
+  rated String?
+  awards Award?
+  lastupdated String?
+  year Int?
   countries String[]
-  type String
-  tomatoes Tomatoes
+  type String?
+  imdb Imdb?
 }
 
 type Award {
-  win Int
-  nominations Int
-  text String
+  win Int?
+  nominations Int?
+  text String?
 }
 
 type Imdb {
-  rating Float
-  votes Int
-  id Int
-}
-
-type Tomatoes{
-  viewer Viewer
-  dvd DateTime
-  critic Viewer
-  lastUpdated DateTime
-  rotten Int
-  production String
-  Fresh Int
-}
-
-type Viewer {
-  rating Float 
-  numReviews Int 
-  meter Int
+  rating Float?
+  votes Int?
+  id Int?
 }
