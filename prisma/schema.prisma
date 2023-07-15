@@ -1,0 +1,60 @@
+datasource db{
+  provider = "mongodb"
+  url = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Movie {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  plot String
+  genres String[]
+  poster String
+  runtime Int
+  cast String[]
+  num_mflix_comments Int
+  title String
+  fullplot String
+  languages String[]
+  released DateTime
+  directors String[]
+  writers String[]
+  rated String
+  awards Award
+  lastupdated DateTime
+  year Int
+  imdb Imdb
+  countries String[]
+  type String
+  tomatoes Tomatoes
+}
+
+type Award {
+  win Int
+  nominations Int
+  text String
+}
+
+type Imdb {
+  rating Float
+  votes Int
+  id Int
+}
+
+type Tomatoes{
+  viewer Viewer
+  dvd DateTime
+  critic Viewer
+  lastUpdated DateTime
+  rotten Int
+  production String
+  Fresh Int
+}
+
+type Viewer {
+  rating Float 
+  numReviews Int 
+  meter Int
+}
