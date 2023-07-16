@@ -7,37 +7,15 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model movies {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  plot String?
-  genres String[]
-  poster String?
-  runtime Int?
-  cast String[]
-  num_mflix_comments Int?
-  title String
-  fullplot String?
-  languages String[]
-  released DateTime?
-  directors String[]
-  writers String[]
-  rated String?
-  awards Award?
-  lastupdated String?
-  year Int?
-  countries String[]
-  type String?
-  imdb Imdb?
-}
-
-type Award {
-  win Int?
-  nominations Int?
-  text String?
-}
-
-type Imdb {
-  rating Float?
-  votes Int?
-  id Int?
-}
+model sessions {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    title String
+    description String?
+    startsAt String?
+    endsAt String?
+    room String?
+    day String?
+    format String?
+    track String?
+    level String?
+  }

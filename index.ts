@@ -3,54 +3,29 @@ import { ApolloServer } from "apollo-server"
 
 const prisma = new PrismaClient()
 
-// TODO release Datetime
 const typeDefs = `
-  type Movie {
+  type Session {
     id: ID!
-    plot: String
-    genres: [String]
-    poster: String
-    runtime: Int
-    cast: [String]
-    num_mflix_comments: Int
-    title: String!
-    fullplot: String
-    languages: [String]
-    
-    directors: [String]
-    writers: [String]
-    rated: String
-    awards: Award
-    lastupdated: String
-    year: Int
-    countries: [String]
-    type: String
-    imdb: Imdb
-  }
-
-  type Award {
-    win: Int
-    nominations: Int
-    text: String
-  }
-  
-  type Imdb {
-    rating: Float
-    votes: Int
-    id: Int
+    title: String!,
+    description:String,
+    startsAt:String,
+    endsAt:String,
+    room:String,
+    day:String,
+    format: String,
+    track:String,
+    level:String
   }
 
   type Query {
-    movies: [Movie]
+    sessions:[Session]
   }
 `
 
 const resolvers = {
   Query: {
-    movies: () => {
-      return prisma.movies.findMany({
-        take: 100,
-      })
+    sessions: () => {
+      return prisma.sessions.findMany()
     },
   },
 }
@@ -62,11 +37,11 @@ server.listen({ port: process.env.Port || 4000 }).then(({ url }) => {
 })
 
 // async function main() {
-//   const movies = await prisma.movies.findMany({
+//   const sessions = await prisma.sessions.count({
 //     //take: 1000,
 //   })
 
-//   console.log(movies)
+//   console.log(sessions)
 // }
 
 // main()
