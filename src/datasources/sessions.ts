@@ -10,8 +10,18 @@ class SessionAPI extends DataSource {
 
   initialize(config) {}
 
-  getSessions() {
-    return this.prisma.sessions.findMany()
+  getSessions(args) {
+    return this.prisma.sessions.findMany({
+      where: args,
+    })
+  }
+
+  getSessionById(id) {
+    return this.prisma.sessions.findUnique({
+      where: {
+        id,
+      },
+    })
   }
 }
 
