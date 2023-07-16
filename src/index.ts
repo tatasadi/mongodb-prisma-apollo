@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client"
 import { ApolloServer } from "apollo-server"
-
-const prisma = new PrismaClient()
+import SessionAPI from "./datasources/sessions"
 
 const typeDefs = `
   type Session {
@@ -24,13 +22,16 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    sessions: () => {
-      return prisma.sessions.findMany()
+    sessions: (parent, args, { dataSources }, info) => {
+      return dataSources.sessionAPI.getSessions()
     },
   },
 }
 
-const server = new ApolloServer({ resolvers, typeDefs })
+const dataSources = () => ({
+  sessionAPI: new SessionAPI(),
+})
+const server = new ApolloServer({ resolvers, typeDefs, dataSources })
 
 server.listen({ port: process.env.Port || 4000 }).then(({ url }) => {
   console.log(`GraphQL running at ${url}`)
