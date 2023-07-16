@@ -1,24 +1,24 @@
 import prisma from "../lib/db"
 import { DataSource } from "apollo-datasource"
 
-class SessionAPI extends DataSource {
+class SpeakerAPI extends DataSource {
   constructor() {
     super()
   }
 
   initialize(config) {}
 
-  getSessions(args) {
-    return prisma.instance.sessions.findMany({
+  getSpeakers(args) {
+    return prisma.instance.speakers.findMany({
       where: args,
       include: {
-        speakers: true,
+        sessions: true,
       },
     })
   }
 
-  getSessionById(id) {
-    return prisma.instance.sessions.findUnique({
+  getSpeakerById(id) {
+    return prisma.instance.speakers.findUnique({
       where: {
         id,
       },
@@ -26,4 +26,4 @@ class SessionAPI extends DataSource {
   }
 }
 
-export default SessionAPI
+export default SpeakerAPI
