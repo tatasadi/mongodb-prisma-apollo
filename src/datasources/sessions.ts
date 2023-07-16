@@ -11,9 +11,6 @@ class SessionAPI extends DataSource {
   getSessions(args) {
     return prisma.instance.sessions.findMany({
       where: args,
-      include: {
-        speakers: true,
-      },
     })
   }
 

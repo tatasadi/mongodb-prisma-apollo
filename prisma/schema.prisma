@@ -8,8 +8,8 @@ generator client {
 }
 
 model sessions {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  referenceId Int        @unique
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  referenceId Int              @unique
   title       String
   description String?
   startsAt    String?
@@ -19,15 +19,23 @@ model sessions {
   format      String?
   track       String?
   level       String?
-  speakerIDs  String[]   @db.ObjectId
-  speakers    speakers[] @relation(fields: [speakerIDs], references: [id])
+  speakers    sessionSpeaker[]
+}
+
+type sessionSpeaker {
+  referenceId String
+  name        String
 }
 
 model speakers {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  referenceId String     @unique
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  referenceId String           @unique
   bio         String?
   name        String?
-  sessionIDs  String[]   @db.ObjectId
-  sessions    sessions[] @relation(fields: [sessionIDs], references: [id])
+  sessions    speakerSession[]
+}
+
+type speakerSession {
+  referenceId Int
+  name        String
 }

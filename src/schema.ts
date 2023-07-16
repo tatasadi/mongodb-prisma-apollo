@@ -26,7 +26,7 @@ type Query {
 type Session {
   id: ID!    
   referenceId: Int!
-  title: String!,
+  title: String,
   description:String,
   startsAt:String,
   endsAt:String,
