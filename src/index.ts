@@ -1,47 +1,7 @@
 import { ApolloServer } from "apollo-server"
 import SessionAPI from "./datasources/sessions"
-
-const typeDefs = `
-  type Session {
-    id: ID!
-    title: String!,
-    description:String,
-    startsAt:String,
-    endsAt:String,
-    room:String,
-    day:String,
-    format: String,
-    track:String,
-    level:String
-  }
-
-  type Query {
-    sessions(
-      id: ID
-      title: String,
-      description:String,
-      startsAt:String,
-      endsAt:String,
-      room:String,
-      day:String,
-      format: String,
-      track:String,
-      level:String
-    ):[Session]
-    sessionById(id:ID): Session
-  }
-`
-
-const resolvers = {
-  Query: {
-    sessions: (parent, args, { dataSources }, info) => {
-      return dataSources.sessionAPI.getSessions(args)
-    },
-    sessionById: (parents, { id }, { dataSources }, info) => {
-      return dataSources.sessionAPI.getSessionById(id)
-    },
-  },
-}
+import typeDefs from "./schema"
+import resolvers from "./resolvers"
 
 const dataSources = () => ({
   sessionAPI: new SessionAPI(),
