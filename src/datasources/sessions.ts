@@ -21,6 +21,24 @@ class SessionAPI extends DataSource {
       },
     })
   }
+
+  async toggleFavoriteSession(id) {
+    const session = await prisma.instance.sessions.findUnique({
+      where: {
+        id,
+      },
+    })
+    if (session) {
+      return prisma.instance.sessions.update({
+        where: {
+          id,
+        },
+        data: {
+          favorite: !session.favorite,
+        },
+      })
+    }
+  }
 }
 
 export default SessionAPI

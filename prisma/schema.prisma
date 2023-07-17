@@ -19,6 +19,7 @@ model sessions {
   format      String?
   track       String?
   level       String?
+  favorite    Boolean?
   speakers    sessionSpeaker[]
 }
 
