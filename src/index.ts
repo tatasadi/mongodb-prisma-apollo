@@ -1,4 +1,4 @@
-import { ApolloServer } from "apollo-server"
+import { ApolloError, ApolloServer } from "apollo-server"
 import SessionAPI from "./datasources/sessions"
 import SpeakerAPI from "./datasources/speakers"
 import typeDefs from "./schema"
@@ -9,7 +9,20 @@ const dataSources = () => ({
   speakerAPI: new SpeakerAPI(),
 })
 
-const server = new ApolloServer({ resolvers, typeDefs, dataSources })
+const server = new ApolloServer({
+  resolvers,
+  typeDefs,
+  dataSources,
+  //debug: false,
+  formatError: (err) => {
+    if (err.extensions.code === "INTERNAL_SERVER_ERROR") {
+      return new ApolloError("We are having some trouble", "ERROR", {
+        token: "uniquetoken",
+      })
+    }
+    return err
+  },
+})
 
 server.listen({ port: process.env.Port || 4000 }).then(({ url }) => {
   console.log(`GraphQL running at ${url}`)

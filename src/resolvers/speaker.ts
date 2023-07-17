@@ -1,3 +1,4 @@
+import { ApolloError } from "apollo-server"
 import _ from "lodash"
 
 export default {
@@ -8,12 +9,18 @@ export default {
   // _id from mongodb is to relate data in prisma and let
   // prisma include the speakers in sessions and sessions in speakers
   sessions: async (speaker, args, { dataSources }, info) => {
-    const sessions = await dataSources.sessionAPI.getSessions()
-    return sessions.filter((session) => {
-      return (
-        _.filter(speaker.sessions, { referenceId: session.referenceId })
-          .length > 0
-      )
-    })
+    try {
+      const sessions = await dataSources.sessionAPI.getSessions()
+      return sessions.filter((session) => {
+        return (
+          _.filter(speaker.sessions, { referenceId: session.referenceId })
+            .length > 0
+        )
+      })
+    } catch (error) {
+      return new ApolloError("Unable to retrieve sessions", "SESSIONSERROR", {
+        token: "uniquetoken",
+      })
+    }
   },
 }
