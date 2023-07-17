@@ -39,6 +39,10 @@ class SessionAPI extends DataSource {
       })
     }
   }
+
+  addSession(session) {
+    return prisma.instance.sessions.create({ data: session })
+  }
 }
 
 export default SessionAPI

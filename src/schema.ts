@@ -25,6 +25,7 @@ type Query {
 
 type Mutation {
   toggleFavoriteSession(id: ID): Session
+  addNewSession(session: SessionInput): Session
 }
 
 type Session {
@@ -49,5 +50,19 @@ type Speaker {
   bio: String
   name: String
   sessions: [Session]
+}
+
+input SessionInput{
+  title: String!,
+  referenceId: Int!,
+  description:String,
+  startsAt:String,
+  endsAt:String,
+  room:String,
+  day:String,
+  format: String,
+  track:String,
+  level:String,
+  favorite: Boolean
 }
 `
