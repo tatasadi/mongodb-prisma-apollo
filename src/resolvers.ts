@@ -25,4 +25,12 @@ export default {
     TITAN: "Titan",
     CALLISTO: "Callisto",
   },
+  SessionOrError: {
+    __resolveType(obj) {
+      if (obj.code) {
+        return "Error"
+      }
+      return "Session"
+    },
+  },
 }

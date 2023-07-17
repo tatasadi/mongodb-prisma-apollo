@@ -3,7 +3,15 @@ export default {
     return dataSources.sessionAPI.getSessions(args)
   },
   sessionById: (parents, { id }, { dataSources }, info) => {
-    return dataSources.sessionAPI.getSessionById(id)
+    try {
+      return dataSources.sessionAPI.getSessionById(id)
+    } catch (error) {
+      return {
+        code: "ERROR",
+        message: "An error occurred",
+        token: "j4io3forjisiutrfpi",
+      }
+    }
   },
   speakers: (parent, args, { dataSources }, info) => {
     return dataSources.speakerAPI.getSpeakers(args)
